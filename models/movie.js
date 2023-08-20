@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
-const movieSchema = new Mongoose.Shema({
+const movieSchema = new mongoose.Schema({
   country : {
     type: String,
     required: true,
@@ -47,7 +47,7 @@ const movieSchema = new Mongoose.Shema({
     },
   },
   owner  : {
-    type: Mongoose.Shema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
   movieId  : {
@@ -64,4 +64,4 @@ const movieSchema = new Mongoose.Shema({
   },
 });
 
-module.exports = mongoose.model("movie", userSchema);
+module.exports = mongoose.model("movie", movieSchema);

@@ -1,25 +1,47 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const path = require('path');
-const bodyParser = require('body-parser');
-
-const routes = require('./routes');
-
+const express = require("express");
+const mongoose = require("mongoose");
+const auth = require('./middlewares/auth')
+const { errors } = require('celebrate');
+const { createUser, login } = require("./controllers/users");
+const ErrorNotFound = require("./errors/ErrorNotFound");
+const errorHandler = require("./middlewares/errorHandler");
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { signUp, signIn } = require("./middlewares/validations.js");
 const { PORT = 3000 } = process.env;
-
-mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
-  userNewUrlParser: true,
-  useCreateIndex: true,
-  userFindAndModify: false,
-});
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'public')));
+mongoose.connect("mongodb://127.0.0.1:27017/bitfilmsdb", {
+  useCreateIndex: true,
+  useUnifiedTopology: false
+});
 
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use(routes);
+// подключаем логгер запросов
+app.use(requestLogger);
+
+app.post('/signup', signUp, createUser);
+app.post('/signin', signIn, login);
+
+app.use(auth);
+
+// роуты, которым нужна авторизация
+app.use('/', require('./routes/users'));
+app.use('/', require('./routes/movies'));
+
+
+// запрос к несуществующему роуту
+app.use('*', (req, res, next) => {
+  next(new ErrorNotFound('Страница не найдена'));
+});
+
+// подключаем логгер ошибок
+app.use(errorLogger);
+
+app.use(errors());
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Application is running on port ${PORT}`);

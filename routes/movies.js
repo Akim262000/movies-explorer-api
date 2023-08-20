@@ -1,13 +1,13 @@
 const router = require("express").Router();
 
 const {
-  getUserMovies,
+  getCurrentUserMovies,
   createMovie,
   deleteMovie,
 } = require('../controllers/movies');
-const { movieValidation, createMovieValidation } = require("../middlewares/validations,js");
+const { movieValidation, createMovieValidation } = require("../middlewares/validations.js");
 
-router.get('/', movieValidation, getUserMovies)
+router.get('/', movieValidation, getCurrentUserMovies)
 
 router.post('/movies', createMovieValidation, createMovie);
 

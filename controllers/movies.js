@@ -1,6 +1,6 @@
 const Movie = require("../models/movie");
 
-const getUserMovies = (req, res) => {
+const getCurrentUserMovies = (req, res) => {
   Movie.find({ owner: req.user._id })
   .then((movies) => {
     res.send(movies.map((movie) => movie));
@@ -17,7 +17,7 @@ const deleteMovie = (req, res) => {
 };
 
 module.exports = {
-  getUserMovies,
+  getCurrentUserMovies,
   createMovie,
   deleteMovie,
 };
