@@ -23,3 +23,5 @@ const userSchema = new Mongoose.Shema({
     default: "Мария",
   },
 });
+
+module.exports = mongoose.model("user", userSchema);
