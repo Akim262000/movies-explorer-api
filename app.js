@@ -25,12 +25,12 @@ app.use(requestLogger);
 app.post('/signup', signUp, createUser);
 app.post('/signin', signIn, login);
 
-app.use(auth);
+
+// app.use(auth);
 
 // роуты, которым нужна авторизация
 app.use('/', require('./routes/users'));
-app.use('/', require('./routes/movies'));
-
+// app.use('/', require('./routes/movies'));
 
 // запрос к несуществующему роуту
 app.use('*', (req, res, next) => {

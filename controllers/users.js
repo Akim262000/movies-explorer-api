@@ -8,21 +8,6 @@ const ErrorConflict = require("../errors/ErrorConflict");
 const ErrorBadRequest = require("../errors/ErrorBadRequest");
 const ErrorNotFound = require("../errors/ErrorNotFound");
 
-//Получение данных о текущем пользователе
-function getCurrentUser(req, res, next) {
-  const { _id } = req.user;
-
-  User.findById(_id)
-    .then((user) => {
-      if (!user) {
-        return next(new ErrorNotFound("Пользователь не найден"));
-      }
-
-      return res.status(ERROR_OK).send(user);
-    })
-    .catch(next);
-}
-
 //Создание пользователя
 function createUser(req, res, next) {
   const { email, password } = req.body;
@@ -72,6 +57,20 @@ function login(req, res, next) {
     .catch(next);
 }
 
+//Получение данных о текущем пользователе
+function getCurrentUser(req, res, next) {
+  const { _id } = req.user;
+  User.findById(_id)
+    .then((user) => {
+      if (!user) {
+        return next(new ErrorNotFound("Пользователь не найден"));
+      }
+
+      return res.status(ERROR_OK).send(user);
+    })
+    .catch(next);
+}
+
 //Обновление данных пользователя
 function updateUser(req, res, next) {
   const { email, name } = req.body;
@@ -89,8 +88,8 @@ function updateUser(req, res, next) {
     });
 }
 module.exports = {
-  getCurrentUser,
   createUser,
   login,
+  getCurrentUser,
   updateUser,
 };
