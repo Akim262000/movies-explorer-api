@@ -1,5 +1,8 @@
 const allowedCors = [
-  'localhost:3000'
+  'http://movie-may.nomoredomainsicu.ru',
+  'https://movie-may.nomoredomainsicu.ru',
+  'http://localhost:3000',
+  'https://localhost:3000',
 ]
 
 const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";

@@ -2,6 +2,8 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 const {ERROR_CREATE, ERROR_OK} = require('../utils/utils')
 
 const ErrorConflict = require("../errors/ErrorConflict");
@@ -47,9 +49,13 @@ function login(req, res, next) {
       if (!user || !password) {
         return next(new ErrorBadRequest("Неверный email или пароль"));
       }
-      const token = jwt.sign({ _id: user._id }, "some-secret-key", {
-        expiresIn: "7d",
-      });
+      const token = jwt.sign(
+        { _id: user._id },
+        NODE_ENV === "production" ? JWT_SECRET : "some-secret-key",
+        {
+          expiresIn: "7d",
+        }
+      );
 
       // вернём токен
       return res.send({ token });
