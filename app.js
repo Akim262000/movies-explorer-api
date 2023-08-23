@@ -9,7 +9,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { signUp, signIn } = require("./middlewares/validations.js");
 const cors = require("./middlewares/cors");
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 const app = express();
 
