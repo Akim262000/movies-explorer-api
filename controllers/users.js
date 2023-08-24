@@ -90,8 +90,14 @@ function updateUser(req, res, next) {
   )
     .then((user) => res.status(ERROR_OK).send(user))
     .catch((err) => {
+      if (err.kind === "ObjectId") {
+        return next(new ErrorBadRequest("Неверный формат ID"));
+      }
       if (err.name === "ValidationError") {
         return next(new ErrorBadRequest("Неверный тип данных"));
+      }
+      if (err.code === 11000) {
+        return next(new ErrorConflict("Пользователь с таким email уже существует"));
       }
       return next(err);
     });
