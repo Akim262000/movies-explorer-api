@@ -8,9 +8,9 @@ const {
 } = require("../middlewares/validations.js");
 
 //Получение информации о текущем пользователе
-router.get("/users/me", getCurrentUser);
+router.get("/me", getCurrentUser);
 
 //Обновление данных пользователя
-router.patch("/users/me", updateUserValidation, updateUser);
+router.patch("/me", updateUserValidation, updateUser);
 
 module.exports = router;

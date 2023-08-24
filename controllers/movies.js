@@ -3,7 +3,7 @@ const ErrorBadRequest = require("../errors/ErrorBadRequest");
 const Movie = require("../models/movie");
 const { ERROR_CREATE } = require("../utils/utils");
 
-const getCurrentUserMovies = (req, res) => {
+const getCurrentUserMovies = (req, res, next) => {
   Movie.find({ owner: req.user._id })
     .then((movies) => {
       res.send(movies.map((movie) => movie));
@@ -11,7 +11,7 @@ const getCurrentUserMovies = (req, res) => {
     .catch(next);
 };
 
-const createMovie = (req, res) => {
+const createMovie = (req, res, next) => {
   const {
     country,
     director,
@@ -54,7 +54,7 @@ const createMovie = (req, res) => {
     });
 };
 
-const deleteMovie = (req, res) => {
+const deleteMovie = (req, res, next) => {
   Movie.findById(req.params.movieId)
     .then((movie) => {
       if (!movie) {
