@@ -1,13 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const auth = require('./middlewares/auth')
 const { errors } = require('celebrate');
-const { createUser, login } = require("./controllers/users");
-const ErrorNotFound = require("./errors/ErrorNotFound");
 const errorHandler = require("./middlewares/errorHandler");
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { signUp, signIn } = require("./middlewares/validations.js");
 const cors = require("./middlewares/cors");
+const router = require("./routes/index");
 
 const PORT = process.env.PORT || 4000;
 
@@ -25,20 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 // подключаем логгер запросов
 app.use(requestLogger);
 
-app.post('/signup', signUp, createUser);
-app.post('/signin', signIn, login);
-
-
-app.use(auth);
-
-// роуты, которым нужна авторизация
-app.use('/', require('./routes/users'));
-app.use('/', require('./routes/movies'));
-
-// запрос к несуществующему роуту
-app.use('*', (req, res, next) => {
-  next(new ErrorNotFound('Страница не найдена'));
-});
+app.use(router)
 
 app.use(cors);
 

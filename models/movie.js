@@ -2,35 +2,27 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
 const movieSchema = new mongoose.Schema({
-  country : {
+  country: {
     type: String,
     required: true,
   },
-  director  : {
+  director: {
     type: String,
     required: true,
   },
-  duration  : {
+  duration: {
     type: Number,
     required: true,
   },
-  year  : {
+  year: {
     type: String,
     required: true,
   },
-  description  : {
+  description: {
     type: String,
     required: true,
   },
-  image  : {
-    type: String,
-    required: true,
-    validate: {
-      validator: (v) => isURL(v),
-      message: "Неправильный формат ссылки",
-    },
-  },
-  trailer  : {
+  image: {
     type: String,
     required: true,
     validate: {
@@ -38,7 +30,7 @@ const movieSchema = new mongoose.Schema({
       message: "Неправильный формат ссылки",
     },
   },
-  thumbnail  : {
+  trailer: {
     type: String,
     required: true,
     validate: {
@@ -46,19 +38,27 @@ const movieSchema = new mongoose.Schema({
       message: "Неправильный формат ссылки",
     },
   },
-  owner  : {
+  thumbnail: {
+    type: String,
+    required: true,
+    validate: {
+      validator: (v) => isURL(v),
+      message: "Неправильный формат ссылки",
+    },
+  },
+  owner: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
-  movieId  : {
+  movieId: {
     type: Number,
     required: true,
   },
-  nameRU  : {
+  nameRU: {
     type: String,
     required: true,
   },
-  nameEN  : {
+  nameEN: {
     type: String,
     required: true,
   },

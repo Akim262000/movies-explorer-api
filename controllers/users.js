@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-const {ERROR_CREATE, ERROR_OK} = require('../utils/utils')
+const { ERROR_CREATE, ERROR_OK } = require("../utils/utils");
 
 const ErrorConflict = require("../errors/ErrorConflict");
 const ErrorBadRequest = require("../errors/ErrorBadRequest");
@@ -18,7 +18,8 @@ function createUser(req, res, next) {
     throw new ErrorBadRequest(`Неправильный логин или пароль`);
   }
 
-    bcrypt.hash(password, 10)
+  bcrypt
+    .hash(password, 10)
     .then((hash) =>
       User.create({
         email,
@@ -35,7 +36,9 @@ function createUser(req, res, next) {
     )
     .catch((err) => {
       if (err.code === 11000) {
-        return next(new ErrorConflict("Пользователь с таким email уже существует"));
+        return next(
+          new ErrorConflict("Пользователь с таким email уже существует")
+        );
       }
       return next(err);
     });

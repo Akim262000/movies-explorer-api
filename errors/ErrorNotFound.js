@@ -5,4 +5,4 @@ class ErrorNotFound extends Error {
   }
 }
 
-module.exports = ErrorNotFound; 
+module.exports = ErrorNotFound;

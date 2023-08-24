@@ -5,4 +5,4 @@ class ErrorBadRequest extends Error {
   }
 }
 
-module.exports = ErrorBadRequest; 
+module.exports = ErrorBadRequest;
