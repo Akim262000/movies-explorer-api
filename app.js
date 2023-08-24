@@ -6,11 +6,11 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require("./middlewares/cors");
 const router = require("./routes/index");
 
-const PORT = process.env.PORT || 4000;
+const {PORT = process.env.PORT || 4000, DB_ADDRESS = process.env.DB_ADDRESS || 'mongodb://127.0.0.1:27017/bitfilmsdb'} = process.env;
 
 const app = express();
 
-mongoose.connect("mongodb://127.0.0.1:27017/bitfilmsdb", {
+mongoose.connect(DB_ADDRESS, {
   useCreateIndex: true,
   useUnifiedTopology: true,
   useNewUrlParser: true,
