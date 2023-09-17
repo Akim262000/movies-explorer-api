@@ -12,7 +12,7 @@ const ErrorNotFound = require("../errors/ErrorNotFound");
 
 //Создание пользователя
 function createUser(req, res, next) {
-  const { email, password } = req.body;
+  const { name, email, password } = req.body;
 
   if (!email || !password) {
     throw new ErrorBadRequest(`Неправильный логин или пароль`);
@@ -24,7 +24,7 @@ function createUser(req, res, next) {
       User.create({
         email,
         password: hash,
-        name: req.body.name,
+        name,
       })
     )
     .then((user) =>

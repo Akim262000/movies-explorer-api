@@ -19,12 +19,14 @@ mongoose.connect(DB_ADDRESS, {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(cors);
+
 // подключаем логгер запросов
 app.use(requestLogger);
 
 app.use(router)
 
-app.use(cors);
+// app.use(cors);
 
 // подключаем логгер ошибок
 app.use(errorLogger);
