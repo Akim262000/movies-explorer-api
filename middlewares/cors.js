@@ -1,6 +1,6 @@
 const allowedCors = [
-  // "http://movie-may.nomoredomainsicu.ru",
-  // "https://movie-may.nomoredomainsicu.ru",
+  "http://movie-may.nomoredomainsicu.ru",
+  "https://movie-may.nomoredomainsicu.ru",
   "http://localhost:3000",
   "https://localhost:3000",
 ];

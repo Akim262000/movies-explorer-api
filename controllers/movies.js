@@ -1,5 +1,6 @@
 const { error } = require("winston");
 const ErrorBadRequest = require("../errors/ErrorBadRequest");
+const ErrorConflict = require("../errors/ErrorConflict");
 const Movie = require("../models/movie");
 const { ERROR_CREATE } = require("../utils/utils");
 
@@ -61,7 +62,7 @@ const deleteMovie = (req, res, next) => {
         return next(new ErrorNotFound("Фильм не найдена"));
       }
 
-      if (!movie.owner.equals(_id)) {
+      if (!movie.owner.equals(req.user._id)) {
         return next(new ErrorForbidden("Нельзя удалить!"));
       }
 

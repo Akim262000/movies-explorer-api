@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const validator = require('validator');
 
 const movieSchema = new mongoose.Schema({
   country: {
@@ -26,7 +27,7 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: (v) => isURL(v),
+      validator: (v) => validator.isURL(v),
       message: "Неправильный формат ссылки",
     },
   },
@@ -34,7 +35,7 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: (v) => isURL(v),
+      validator: (v) => validator.isURL(v),
       message: "Неправильный формат ссылки",
     },
   },
@@ -42,7 +43,7 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: (v) => isURL(v),
+      validator: (v) => validator.isURL(v),
       message: "Неправильный формат ссылки",
     },
   },
